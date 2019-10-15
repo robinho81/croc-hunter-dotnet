@@ -2,7 +2,7 @@
 
 A dot net version of the infamous Croc Hunter demo application!
 
-Implemented using Dot Net Core 3 and a simple Razor page.
+Implemented using C#, Dot Net Core 3 and a simple Razor page.
 
 Adds some funny graphics!
 
