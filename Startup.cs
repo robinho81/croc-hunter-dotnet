@@ -20,6 +20,16 @@ namespace croc_hunter_dotnet
             services.AddRazorPages();
         }
 
+        private string getVersion()
+        {
+            var versionStr = Environment.GetEnvironmentVariable("CROC_APP_VERSION");
+            if (string.IsNullOrEmpty(versionStr))
+            {
+                versionStr = "NotSet";
+            }
+            return versionStr;
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHealthChecks("/hc");
@@ -37,7 +47,7 @@ namespace croc_hunter_dotnet
                   endpoints.MapRazorPages();
                   endpoints.MapGet("/version", async context =>
                       {
-                          await context.Response.WriteAsync("3.4");
+                          await context.Response.WriteAsync(getVersion());
                       });
               });
         }

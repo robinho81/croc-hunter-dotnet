@@ -21,6 +21,8 @@ spec:
         env:
         - name: Database_Connection_String
           value: 'blah blah blah'
+        - name: CROC_APP_VERSION
+          value: '1.9.1'
         resources:
           requests: 
             cpu: '0.25'
