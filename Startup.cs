@@ -49,6 +49,10 @@ namespace croc_hunter_dotnet
                       {
                           await context.Response.WriteAsync(getVersion());
                       });
+                  endpoints.MapGet("/hostname", async context =>
+                  {
+                          await context.Response.WriteAsync(System.Environment.MachineName);
+                 });
               });
         }
     }
