@@ -26,7 +26,7 @@ var requestAnimFrame =
   };
 var enemies = [];
 var imgSprite = new Image();
-imgSprite.src = "/sprite2.png";
+imgSprite.src = "/sprite2.png#" + new Date().getTime();
 imgSprite.addEventListener("load", init, false);
 var bgDrawX1 = 0;
 var bgDrawX2 = 1600;
@@ -203,6 +203,9 @@ Jet.prototype.checkShooting = function() {
 Jet.prototype.updateScore = function(points) {
   this.score += points;
   updateHud();
+  console.log('update points');
+  // fake out an image reload here
+  this.imgSprite.src = "/sprite2.png#" + new Date().getTime();
 };
 function clearContextJet() {
   contextJet.clearRect(0, 0, gameWidth, gameHeight);

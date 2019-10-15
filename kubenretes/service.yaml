@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: croc-hunter-service
+  labels:
+    app: croc-hunter-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: croc-hunter-dotnet
