@@ -12,8 +12,9 @@ To run:
 2. docker build -t croc-hunter-dotnet .
 3. docker run -p 5000:80 croc-hunter-dotnet
 
-TODO:
-Add Kubernetes deployment files and Helm chart.
+## TODO:
+* Add Kubernetes deployment files
+* Add Helm chart.
 
 ## Croc Hunter
 
