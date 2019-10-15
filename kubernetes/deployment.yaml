@@ -16,6 +16,7 @@ spec:
         beta.kubernetes.io/os: linux
       containers:
       - image: croc-hunter-dotnet:latest
+        imagePullPolicy: IfNotPresent
         name: croc-hunter-dotnet
         env:
         - name: Database_Connection_String
