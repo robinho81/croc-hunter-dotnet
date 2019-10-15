@@ -12,30 +12,34 @@ using Microsoft.AspNetCore.Diagnostics;
 
 namespace croc_hunter_dotnet
 {
-  public class Startup
-  {
-    public void ConfigureServices(IServiceCollection services)
+    public class Startup
     {
-      services.AddHealthChecks();
-      services.AddRazorPages();
-    }
-
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-      app.UseHealthChecks("/hc");
-
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
-
-      app.UseStaticFiles();
-      app.UseRouting();
-
-      app.UseEndpoints(endpoints =>
+        public void ConfigureServices(IServiceCollection services)
         {
-            endpoints.MapRazorPages();
-        });
+            services.AddHealthChecks();
+            services.AddRazorPages();
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseHealthChecks("/hc");
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+              {
+                  endpoints.MapRazorPages();
+                  endpoints.MapGet("/version", async context =>
+                      {
+                          await context.Response.WriteAsync("3.4");
+                      });
+              });
+        }
     }
-  }
 }

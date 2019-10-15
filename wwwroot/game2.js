@@ -28,6 +28,15 @@ var enemies = [];
 var imgSprite = new Image();
 imgSprite.src = "/sprite2.png#" + new Date().getTime();
 imgSprite.addEventListener("load", init, false);
+
+// setInterval(() => {
+//   // gotta remove the event listener after the first update of sprites or else we get too many crocs!s
+//   imgSprite.removeEventListener("load", init, false);
+//   // updates the sprites periodically, demonstrates a change to 
+//   console.log('update');
+//   imgSprite.src = "/sprite2.png#" + new Date().getTime();
+// }, 8000);
+
 var bgDrawX1 = 0;
 var bgDrawX2 = 1600;
 function moveBg() {
@@ -203,9 +212,6 @@ Jet.prototype.checkShooting = function() {
 Jet.prototype.updateScore = function(points) {
   this.score += points;
   updateHud();
-  console.log('update points');
-  // fake out an image reload here
-  this.imgSprite.src = "/sprite2.png#" + new Date().getTime();
 };
 function clearContextJet() {
   contextJet.clearRect(0, 0, gameWidth, gameHeight);
