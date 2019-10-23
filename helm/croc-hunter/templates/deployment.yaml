@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: croc-hunter-dotnet
+spec:
+  selector:
+    matchLabels:
+      app: croc-hunter-dotnet
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: croc-hunter-dotnet
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      containers:
+      - image: sparky.azurecr.io/croc-hunter-dotnet:{{.Values.dockerTag}}
+        imagePullPolicy: IfNotPresent
+        name: croc-hunter-dotnet
+        env:
+        - name: Database_Connection_String
+          value: 'blah blah blah'
+        - name: CROC_APP_VERSION
+          value: {{.Values.crocAppVersion }}
+        resources:
+          requests: 
+            cpu: '0.25'
+            memory: '128Mi'
+          limits:
+            cpu: '1'
+            memory: '256Mi'
+        readinessProbe:
+          httpGet:
+            path: /hc
+            port: 80
+          timeoutSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 20
+        ports:
+        - name: croc-port
+          containerPort: 80
+      imagePullSecrets:
+      - name: acr-auth
