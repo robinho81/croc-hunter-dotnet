@@ -1,0 +1,8 @@
+Install the helm chart:
+helm install croc-hunter -n dev  
+
+Upgrade the Helm chart:
+helm upgrade dev croc-hunter
+
+Delete the Helm Chart:
+helm delete dev --purge

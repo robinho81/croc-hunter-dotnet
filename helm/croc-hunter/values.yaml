@@ -1,0 +1,3 @@
+## Values file for Croc Hunter Helm Chart!
+dockerTag: latest
+crocAppVersion: 'helm_1.9.1'

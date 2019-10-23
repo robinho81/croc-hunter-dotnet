@@ -5,6 +5,9 @@
 		<html>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
 				<title>Croc Hunter Dotnet</title>
 				<link rel='stylesheet' href='/game.css'/>
 				<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
@@ -17,8 +20,25 @@
 				<canvas id="canvasHud" width="800" height="500" ></canvas>
 				<script src='/game2.js'></script>
 				<div class="details">
-				<strong>Hostname: </strong>@Model.Hostname<br>
-				<strong>Powered By: </strong>@Model.PoweredBy<br>
+				<strong>Hostname: </strong>@Model.Hostname <br>
+				<strong>Powered By: </strong>@Model.PoweredBy <br>
+				<strong>API Version: </strong><span id="apiversion"></span>
 				</div>
 			</body>
 		</html>
+		<script>
+			function getVersion() {
+					fetch('/version').then((response) => {
+						response.text().then(text => {
+							document.getElementById('apiversion').innerText = text;
+						});
+					}).catch((error) => {
+					console.error(error);
+					document.getElementById('apiversion').innerText = 'error';
+					});
+			}
+
+			setInterval(() => {
+				getVersion();
+			}, 8880)
+		</script>

@@ -12,30 +12,48 @@ using Microsoft.AspNetCore.Diagnostics;
 
 namespace croc_hunter_dotnet
 {
-  public class Startup
-  {
-    public void ConfigureServices(IServiceCollection services)
+    public class Startup
     {
-      services.AddHealthChecks();
-      services.AddRazorPages();
-    }
-
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-      app.UseHealthChecks("/hc");
-
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
-
-      app.UseStaticFiles();
-      app.UseRouting();
-
-      app.UseEndpoints(endpoints =>
+        public void ConfigureServices(IServiceCollection services)
         {
-            endpoints.MapRazorPages();
-        });
+            services.AddHealthChecks();
+            services.AddRazorPages();
+        }
+
+        private string getVersion()
+        {
+            var versionStr = Environment.GetEnvironmentVariable("CROC_APP_VERSION");
+            if (string.IsNullOrEmpty(versionStr))
+            {
+                versionStr = "NotSet";
+            }
+            return versionStr;
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseHealthChecks("/hc");
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+              {
+                  endpoints.MapRazorPages();
+                  endpoints.MapGet("/version", async context =>
+                      {
+                          await context.Response.WriteAsync(getVersion());
+                      });
+                  endpoints.MapGet("/hostname", async context =>
+                  {
+                          await context.Response.WriteAsync(System.Environment.MachineName);
+                 });
+              });
+        }
     }
-  }
 }
