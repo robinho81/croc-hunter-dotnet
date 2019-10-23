@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: croc-hunter-dotnet
-  replicas: 1
+  replicas: {{.Values.replicas}}
   template:
     metadata:
       labels:
@@ -15,7 +15,7 @@ spec:
       nodeSelector:
         beta.kubernetes.io/os: linux
       containers:
-      - image: sparky.azurecr.io/croc-hunter-dotnet:{{.Values.dockerTag}}
+      - image: croc-hunter-dotnet:{{.Values.dockerTag}}
         imagePullPolicy: IfNotPresent
         name: croc-hunter-dotnet
         env:
